@@ -1,6 +1,14 @@
 function capitalize(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
+
+  //// regex version
+  return word.replace(/^\w/, (c) => c.toUpperCase());
+
+  //// tutorial version
+  //return word.substring(0, 1).toUpperCase()+word.substring(1, word.length);
+
+  // which one is most readable?
 }
 
 function generateInitials(firstName, lastName) {

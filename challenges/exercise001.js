@@ -9,6 +9,7 @@ function capitalize(word) {
   //return word.substring(0, 1).toUpperCase()+word.substring(1, word.length);
 
   // which one is most readable?
+  
 }
 
 function generateInitials(firstName, lastName) {

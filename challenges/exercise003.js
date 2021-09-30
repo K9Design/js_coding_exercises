@@ -51,11 +51,11 @@ function duplicateNumbers(arr1, arr2) {
   if (arr1 === undefined) throw new Error("arr1 is required");
   if (arr2 === undefined) throw new Error("arr2 is required");
   // Your code here!
-  var duplicateList = [];
+  let duplicateList = [];
   arr1.some((n1) =>
     arr2.some((n2) => {
       if (n1 === n2) {
-        if (duplicateList.length == 0 || !duplicateList.some((n) => n === n1) ) {
+        if (duplicateList.length == 0 || !duplicateList.some((n) => n === n1)) {
           duplicateList.push(n1);
         }
       }

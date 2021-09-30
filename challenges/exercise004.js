@@ -1,4 +1,3 @@
-
 function roundNumberWithDecimals(num, scale) {
   if (!("" + num).includes("e")) {
     return +(Math.round(num + "e+" + scale) + "e-" + scale);
@@ -16,14 +15,13 @@ function roundNumberWithDecimals(num, scale) {
   }
 }
 
-
 function findSmallNums(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
   let smallNumsArray = [];
-  for (let i=0; i < nums.length; i++) {
-    if (nums[i] < 1) smallNumsArray.push(nums[i]);
-  }
+  nums.forEach((n) => {
+    if (n < 1) smallNumsArray.push(n);
+  });
   return smallNumsArray;
 }
 
@@ -32,9 +30,9 @@ function findNamesBeginningWith(names, char) {
   if (!char) throw new Error("char is required");
   // Your code here
   let namesResults = [];
-  for (let i=0; i < names.length; i++) {
-    if (names[i].substr(0,char.length) == char) namesResults.push(names[i]);
-  }
+  names.forEach((w) => {
+    if (w.substr(0, char.length) == char) namesResults.push(w);
+  });
   return namesResults;
 }
 
@@ -42,9 +40,9 @@ function findVerbs(words) {
   if (!words) throw new Error("words is required");
   // Your code here
   let wordsResults = [];
-  for (let i=0; i < words.length; i++) {
-    if (words[i].substr(0,3) == "to ") wordsResults.push(words[i]);
-  }
+  words.forEach((w) => {
+    if (w.substr(0, 3) == "to ") wordsResults.push(w);
+  });
   return wordsResults;
 }
 
@@ -52,9 +50,9 @@ function getIntegers(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
   let numResults = [];
-  for (let i=0; i < nums.length; i++) {
-    if (nums[i] / Math.round(nums[i]) == 1) numResults.push(nums[i]);
-  }
+  nums.forEach((n) => {
+    if (n / Math.round(n) == 1) numResults.push(n);
+  });
   return numResults;
 }
 
@@ -62,9 +60,9 @@ function getCities(users) {
   if (!users) throw new Error("users is required");
   // Your code here
   let cityResults = [];
-  for (let i=0; i < users.length; i++) {
-    cityResults.push(users[i].data.city.displayName);
-  }
+  users.forEach((u) => {
+    cityResults.push(u.data.city.displayName);
+  });
   return cityResults;
 }
 
@@ -72,9 +70,9 @@ function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
   let numResults = [];
-  for (let i=0; i < nums.length; i++) {
-    numResults.push( roundNumberWithDecimals(Math.sqrt(nums[i]),2) );
-  }
+  nums.forEach((n) => {
+    numResults.push( roundNumberWithDecimals( Math.sqrt(n) ,2) );
+  });
   return numResults;
 }
 
@@ -83,9 +81,9 @@ function findSentencesContaining(sentences, str) {
   if (!str) throw new Error("str is required");
   // Your code here
   let wordsResults = [];
-  for (let i=0; i < sentences.length; i++) {
-    if (sentences[i].toLowerCase().indexOf( str.toLowerCase()) > -1 ) wordsResults.push(sentences[i]);
-  }
+  sentences.forEach((w) => {
+    if (w.toLowerCase().indexOf(str.toLowerCase()) > -1) wordsResults.push(w);
+  });
   return wordsResults;
 }
 
@@ -93,13 +91,13 @@ function getLongestSides(triangles) {
   if (!triangles) throw new Error("triangles is required");
   // Your code here
   let numResults = [];
-  for (let i=0; i < triangles.length; i++) {
+  triangles.forEach((arr) => {
     let highestNumber = 0;
-    for (let j=0; j < triangles[i].length; j++) {
-      if (triangles[i][j] > highestNumber) highestNumber = triangles[i][j];
-    }
+    arr.forEach((n2) => {
+      if (n2 > highestNumber) highestNumber = n2;
+    });
     numResults.push(highestNumber);
-  }
+  });
   return numResults;
 }
 

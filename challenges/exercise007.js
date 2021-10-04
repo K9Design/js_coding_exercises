@@ -2,8 +2,14 @@
  * This function takes a number, e.g. 123 and returns the sum of all its digits, e.g 6 in this example.
  * @param {Number} n
  */
-const sumDigits = n => {
-  if (n === undefined) throw new Error("n is required");
+const sumDigits = (n) => {
+  if (n === undefined) throw new Error("argument as a number is required");
+  if (typeof n != "number") throw new Error("argument as a number is required");
+
+  return String(n)
+    .replace(/[^\d+$]/, "")
+    .split("")
+    .reduce((prevChar, currentChar) => Number(prevChar) + Number(currentChar));
 };
 
 /**
@@ -17,7 +23,14 @@ const sumDigits = n => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
-  if (step === undefined) throw new Error("step is required?");
+  if (typeof start != "number" || typeof end != "number")
+    throw new Error("arguments as numbers is required");
+  if (step === undefined) step = 1;
+
+  let results = [];
+  for (let i = start; i <= end; i += step) results.push(i);
+
+  return results;
 };
 
 /**
@@ -52,6 +65,20 @@ const createRange = (start, end, step) => {
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+
+  //
+  let excededTimeUsers = [];
+  users.forEach((u) => {
+    u.screenTime.filter((entry) => {
+      if (entry.date === date) {
+        let sum = 0;
+        for (let socMed in entry.usage) sum += entry.usage[socMed];
+        if (sum >= 100) excededTimeUsers.push(u.name);
+      }
+    });
+  });
+
+  return excededTimeUsers;
 };
 
 /**
@@ -64,9 +91,35 @@ const getScreentimeAlertList = (users, date) => {
  * Hint: You will need to convert each hexadecimal value for R, G and B into its decimal equivalent!
  * @param {String} str
  */
-const hexToRGB = hexStr => {
+const hexToRGB = (hexStr) => {
   if (hexStr === undefined) throw new Error("hexStr is required");
+  if (typeof hexStr != "string") throw new Error("hexStr is required");
+  //
+  let rgbObject = hexToRgb(hexStr);
+
+  return "rgb("+rgbObject.r+","+rgbObject.g+","+rgbObject.b+")"
+
 };
+
+function hexToRgb(hex) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+
+
+
+
 
 /**
  * This function takes a noughts and crosses board represented as an array, where an empty space is represented with null.
@@ -78,7 +131,7 @@ const hexToRGB = hexStr => {
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
  * @param {Array} board
  */
-const findWinner = board => {
+const findWinner = (board) => {
   if (board === undefined) throw new Error("board is required");
 };
 
@@ -87,5 +140,5 @@ module.exports = {
   createRange,
   getScreentimeAlertList,
   hexToRGB,
-  findWinner
+  findWinner,
 };

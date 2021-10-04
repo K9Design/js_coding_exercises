@@ -97,29 +97,25 @@ const hexToRGB = (hexStr) => {
   //
   let rgbObject = hexToRgb(hexStr);
 
-  return "rgb("+rgbObject.r+","+rgbObject.g+","+rgbObject.b+")"
-
+  return "rgb(" + rgbObject.r + "," + rgbObject.g + "," + rgbObject.b + ")";
 };
 
 function hexToRgb(hex) {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
     return r + r + g + g + b + b;
   });
 
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : null;
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
 }
-
-
-
-
-
 
 /**
  * This function takes a noughts and crosses board represented as an array, where an empty space is represented with null.
@@ -132,7 +128,57 @@ function hexToRgb(hex) {
  * @param {Array} board
  */
 const findWinner = (board) => {
-  if (board === undefined) throw new Error("board is required");
+  if (board === undefined) throw new Error("argument as array is required");
+  if (!Array.isArray(board)) throw new Error("argument as array is required");
+
+  // find bad characters
+  board.forEach((a) =>
+    a.forEach((s) => {
+      if (s != "X" && s != "0" && s != null)
+        throw new Error("bad arguments in array");
+    })
+  );
+
+  // look for vertical and horisontal wins
+  if (board.length != 3) throw new Error("bad array format");
+  for (let row = 0; row < board.length; row++) {
+    if (board[row].length != 3) throw new Error("bad array format");
+    // horizontal
+    if (board[row][0] === "X" && board[row][1] === "X" && board[row][2] === "X")
+      return "X";
+    if (board[row][0] === "0" && board[row][1] === "0" && board[row][2] === "0")
+      return "0";
+
+    // vertical
+    for (let col = 0; col < board[row].length; col++) {
+      if (
+        board[0][col] === "X" &&
+        board[1][col] === "X" &&
+        board[2][col] === "X"
+      )
+        return "X";
+      if (
+        board[0][col] === "0" &&
+        board[1][col] === "0" &&
+        board[2][col] === "0"
+      )
+        return "0";
+    }
+  }
+
+  // diagonal
+  if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X")
+    return "X";
+  if (board[0][0] == "0" && board[1][1] == "0" && board[2][2] == "0")
+    return "0";
+
+  if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X")
+    return "X";
+  if (board[0][2] == "0" && board[1][1] == "0" && board[2][0] == "0")
+    return "0";
+
+    // needs refactoring
+  return "fail";
 };
 
 module.exports = {

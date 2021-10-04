@@ -2,9 +2,9 @@ const {
   sumDigits,
   createRange,
   getScreentimeAlertList,
-  hexToRGB
+  hexToRGB,
+  findWinner,
 } = require("../challenges/exercise007");
-
 
 describe("hexToRGB - TThis function should transform the hex code into an RGB code in the format rgb(255,17,51)", () => {
   test("check for parameter throw", () => {
@@ -27,9 +27,6 @@ describe("hexToRGB - TThis function should transform the hex code into an RGB co
     expect(hexToRGB("95c")).toBe("rgb(153,85,204)");
   });
 });
-
-
-
 
 describe("getScreentimeAlertList - takes an array of user objects and their usage in minutes of various applications. The function should return an array of usernames of users who have used more than 100 minutes of screentime for a given date", () => {
   const users = [
@@ -87,7 +84,10 @@ describe("getScreentimeAlertList - takes an array of user objects and their usag
 
   test("returns 1 or more users", () => {
     expect(getScreentimeAlertList(users, "2019-05-02")).toEqual(["Beth Smith"]);
-    expect(getScreentimeAlertList(users, "2019-05-04")).toEqual(["Beth Smith", "Sam Jones"]);
+    expect(getScreentimeAlertList(users, "2019-05-04")).toEqual([
+      "Beth Smith",
+      "Sam Jones",
+    ]);
   });
 
   test("returns empty - dates exist", () => {
@@ -100,8 +100,6 @@ describe("getScreentimeAlertList - takes an array of user objects and their usag
     expect(getScreentimeAlertList(users, "2029-06-13")).toEqual([]);
   });
 });
-
-
 
 describe("sumDigits - This function creates a range of numbers as an array. It received a start, an end and a step. Step is the gap between numbers in the range.", () => {
   test("check for parameter throw", () => {
@@ -146,4 +144,73 @@ describe("createRange - This function takes a number, e.g. 123 and returns the s
   test("all true, nostep", () => {
     expect(createRange(1, 4)).toEqual([1, 2, 3, 4]);
   });
+});
+
+describe("findWinner - find winner in tic/tac/toe ['X','0',null]", () => {
+  const gameFail = [
+    ["Y", "0", null],
+    ["X", null, "0"],
+    ["X", null, "T"],
+  ];
+
+  const gameXV = [
+    ["X", "0", null],
+    ["X", null, "0"],
+    ["X", null, "0"],
+  ];
+
+  const game0V = [
+    [null, "X", "0"],
+    ["X", null, "0"],
+    ["X", null, "0"],
+  ];
+
+  const gameXH = [
+    ["X", "X", "X"],
+    [null, null, "0"],
+    ["X", null, "0"],
+  ];
+
+  const game0H = [
+    [null, "X", "X"],
+    ["X", null, null],
+    ["0", "0", "0"],
+  ];
+
+  const gameXD = [
+    ["X", null, "0"],
+    [null, "X", "0"],
+    ["0", null, "X"],
+  ];
+
+  const game0D = [
+    ["X", null, "0"],
+    ["X", "0", null],
+    ["0", null, "X"],
+  ];
+
+  test("check for parameter throw", () => {
+    expect(() => findWinner("fail")).toThrow("argument as array is required");
+    expect(() => findWinner(undefined)).toThrow(
+      "argument as array is required"
+    );
+    expect(() => findWinner(1)).toThrow("argument as array is required");
+    expect(() => findWinner(gameFail)).toThrow("bad arguments in array");
+  });
+
+  test("vertical wins", () => {
+    expect(findWinner(gameXV)).toBe("X");
+    expect(findWinner(game0V)).toBe("0");
+  });
+
+  test("horizontal wins", () => {
+    expect(findWinner(gameXH)).toBe("X");
+    expect(findWinner(game0H)).toBe("0");
+  });
+
+  test("diagonal wins", () => {
+    expect(findWinner(gameXD)).toBe("X");
+    expect(findWinner(game0D)).toBe("0");
+  });
+
 });

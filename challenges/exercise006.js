@@ -7,11 +7,11 @@
 const sumMultiples = (arr) => {
   if (arr === undefined) throw new Error("arr is required");
   if (!Array.isArray(arr)) throw new Error("argument as array is required");
-  let total = 0;
-  arr.forEach((n) => {
-    if (n % 3 === 0 || n % 5 === 0) total += n;
-  });
-  return total;
+
+  return arr.reduce(
+    (prev, num) => (num % 3 === 0 || num % 5 === 0 ? prev + num : prev),
+    0
+  );
 };
 
 /**
@@ -24,8 +24,7 @@ const isValidDNA = (str) => {
   if (typeof str != "string")
     throw new Error("argument as a string is required");
   //
-  if (str.length === 0) return false;
-  return !/[^gtca]/i.test(str.toLowerCase());
+  return str.length === 0 ? false : !/[^gtca]/i.test(str.toLowerCase());
 };
 
 /**
@@ -35,23 +34,13 @@ const isValidDNA = (str) => {
  */
 const getComplementaryDNA = (str) => {
   if (str === undefined) throw new Error("argument as a string is required");
-  if (typeof str != "string") throw new Error("argument as a string is required");
+  if (typeof str != "string")
+    throw new Error("argument as a string is required");
   if (!isValidDNA(str)) throw new Error("string contains non DNA characters");
   //
-  let converted = "";
-  str.toLowerCase().split("").map(c => {
-    switch(c){
-      case "g": converted += "C"; break;
-      case "c": converted += "G"; break;
-      case "a": converted += "T"; break;
-      case "t": converted += "A"; break;
-    }
-  });
-  return converted
-
+  var swapMap = { g: "C", c: "G", t: "A", a: "T" };
+  return str.toLowerCase().replace(/[cgat]/g, (char) => swapMap[char]);
 };
-
-
 
 /**
  * This function should receive a number and return true/false depending on whether it is a prime number or not. A prime number is a number that can only be divided evenly by 1 and itself (for example, 7)
@@ -61,13 +50,11 @@ const getComplementaryDNA = (str) => {
 const isItPrime = (n) => {
   if (n === undefined) throw new Error("argument as a number is required");
   if (typeof n != "number") throw new Error("argument as a number is required");
-  
   // limit search above 102233
-  for(let i = 2; i < n; i++) {
-    if(n % i === 0 || i > 102233) return false;
+  for (let i = 2; i < n; i++) {
+    if (n % i === 0 || i > 102233) return false;
   }
   return n > 1;
-
 };
 
 /**
@@ -86,17 +73,10 @@ const createMatrix = (n, fill) => {
   if (fill === undefined) throw new Error("fill is required");
 
   if (typeof n != "number") throw new Error("argument as a number is required");
-  if (typeof fill != "string") throw new Error("second argument as a string is required");
+  if (typeof fill != "string")
+    throw new Error("second argument as a string is required");
 
-  let matrix = [];
-  for (let i = 0; i < n; i++) {
-    matrix[i] = [];
-    for (let j = 0; j < n; j++){
-      matrix[i].push(fill);
-    }
-  }
-
-  return matrix
+  return Array(n).fill(Array(n).fill(fill));
 };
 
 /**
@@ -117,9 +97,9 @@ const areWeCovered = (staff, day) => {
   if (staff.length === 0) return false;
 
   let count = 0;
-  staff.forEach((member) => {
-    if (member.rota.filter((d) => d === day).length > 0) count++;
-  });
+  staff.forEach((member) =>
+    member.rota.filter((d) => d === day).length > 0 ? count++ : 0
+  );
   return count >= 3;
 };
 

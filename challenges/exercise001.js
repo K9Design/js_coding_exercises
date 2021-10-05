@@ -1,14 +1,7 @@
 function capitalize(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
-
-  //// regex version
   return word.replace(/^\w/, (c) => c.toUpperCase());
-
-  //// tutorial version
-  //return word.substring(0, 1).toUpperCase()+word.substring(1, word.length);
-
-  // which one is most readable?
 }
 
 function generateInitials(firstName, lastName) {
@@ -22,13 +15,13 @@ function generateInitials(firstName, lastName) {
   );
 }
 
-// fairly accurate rounding algorithm
+// fairly accurate rounding algorithm with  N(scale) decimals
 function roundNumberWithDecimals(num, scale) {
   if (!("" + num).includes("e")) {
     return +(Math.round(num + "e+" + scale) + "e-" + scale);
   } else {
-    var arr = ("" + num).split("e");
-    var sig = "";
+    let arr = ("" + num).split("e");
+    let sig = "";
     if (+arr[1] + scale > 0) {
       sig = "+";
     }
@@ -65,13 +58,10 @@ function getMiddleCharacter(str) {
   // Add your code here!
   let midNum = str.length / 2;
   let midNumFloored = Math.floor(midNum);
-  if (midNum == midNumFloored) {
-    // even
-    return str.substring(midNum - 1, midNum + 1);
-  } else {
-    // odd
-    return str.substring(midNumFloored, midNumFloored + 1);
-  }
+  return (midNum =
+    str.length / 2 == Math.floor(midNum)
+      ? str.substring(midNum - 1, midNum + 1)
+      : str.substring(midNumFloored, midNumFloored + 1));
 }
 
 function reverseString(str) {
@@ -87,29 +77,19 @@ function reverseWord(word) {
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
   // Add your code here!
-  var reversedWords = [];
-  words.forEach((word) => reversedWords.push(reverseString(word)));
-  return reversedWords;
-}
-
-function filterByType(item) {
-  if (item.type == "Linux") {
-    return true;
-  }
-  return false;
+  return words.map((word) => reverseString(word));
 }
 
 function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
   // Add your code here!
-  return users.filter(filterByType).length;
+  return users.filter((user) => user.type === "Linux").length;
 }
 
 function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
-  var total = 0;
-  scores.forEach((score) => (total += score));
+  let total = scores.reduce((prevScore,score) => prevScore + score)
   return roundNumberWithDecimals(total / scores.length, 2);
 }
 

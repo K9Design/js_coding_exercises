@@ -17,21 +17,19 @@ function getBusNumbers(people) {
 }
 
 function filterBySheep(item) {
-  return item.toLowerCase() == "sheep" ? true : false;
+  return item.toLowerCase() === "sheep";
 }
 
 function countSheep(arr) {
   if (arr === undefined) throw new Error("arr is required");
   // Your code here!
-
   return arr.filter(filterBySheep).length;
 }
 
 function hasMPostCode(person) {
   if (person === undefined) throw new Error("person is required");
   // Your code here!
-  let postcode = person.address.postCode;
-  return postcode.charAt(0) === "M" && !isNaN(postcode.charAt(1));
+  return person.address.postCode.charAt(0) === "M" && !isNaN(person.address.postCode.charAt(1));
 }
 
 module.exports = {

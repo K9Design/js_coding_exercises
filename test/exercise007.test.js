@@ -147,10 +147,19 @@ describe("createRange - This function takes a number, e.g. 123 and returns the s
 });
 
 describe("findWinner - find winner in tic/tac/toe ['X','0',null]", () => {
-  const gameFail = [
+  const gameFail1 = [
     ["Y", "0", null],
-    ["X", null, "0"],
+    ["X", "y", "0"],
     ["X", null, "T"],
+  ];
+  const gameFail2 = [
+    ["X", "0", null],
+    ["X", null, "0"],
+    ["X"],
+  ];
+  const gameFail3 = [
+    ["X", "0", null],
+    ["X", null, "0"],
   ];
 
   const gameXV = [
@@ -195,7 +204,10 @@ describe("findWinner - find winner in tic/tac/toe ['X','0',null]", () => {
       "argument as array is required"
     );
     expect(() => findWinner(1)).toThrow("argument as array is required");
-    expect(() => findWinner(gameFail)).toThrow("bad arguments in array");
+    expect(() => findWinner(gameFail1)).toThrow("bad arguments in array");
+    expect(() => findWinner(gameFail2)).toThrow("bad array format");
+    expect(() => findWinner(gameFail3)).toThrow("bad array format");
+    
   });
 
   test("vertical wins", () => {

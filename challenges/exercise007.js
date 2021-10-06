@@ -107,7 +107,7 @@ function hexToRgb(hex) {
     return r + r + g + g + b + b;
   });
 
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
         r: parseInt(result[1], 16),
@@ -124,6 +124,11 @@ function hexToRgb(hex) {
  *  ["X", null, "0"],
  *  ["X", null, "0"]
  * ]
+ * [
+ *  ["0", "1", "2"],
+ *  ["3", "4", "5"],
+ *  ["6", "7", "8"]
+ * ]
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
  * @param {Array} board
  */
@@ -132,53 +137,56 @@ const findWinner = (board) => {
   if (!Array.isArray(board)) throw new Error("argument as array is required");
 
   // find bad characters
-  board.forEach((a) =>
-    a.forEach((s) => {
-      if (s != "X" && s != "0" && s != null)
-        throw new Error("bad arguments in array");
-    })
-  );
+  let flatBoard = board
+    .map((arr) => arr.map((s) => (s === null ? "n" : s)))
+    .flat(3)
+    .join("");
+  if (flatBoard.replace(/([X0n]+)/g, "").length > 0)
+    throw new Error("bad arguments in array");
+  if (flatBoard.length != 9) throw new Error("bad array format"); // expect 3x3
 
-  // look for vertical and horisontal wins
-  if (board.length != 3) throw new Error("bad array format");
-  for (let row = 0; row < board.length; row++) {
-    if (board[row].length != 3) throw new Error("bad array format");
-    // horizontal
-    if (board[row][0] === "X" && board[row][1] === "X" && board[row][2] === "X")
-      return "X";
-    if (board[row][0] === "0" && board[row][1] === "0" && board[row][2] === "0")
-      return "0";
+  if (
+    flatBoard.charAt(0) === flatBoard.charAt(1) &&
+    flatBoard.charAt(1) === flatBoard.charAt(2)
+  )
+    return flatBoard.charAt(0);
+  if (
+    flatBoard.charAt(3) === flatBoard.charAt(4) &&
+    flatBoard.charAt(4) === flatBoard.charAt(5)
+  )
+    return flatBoard.charAt(3);
+  if (
+    flatBoard.charAt(6) === flatBoard.charAt(7) &&
+    flatBoard.charAt(7) === flatBoard.charAt(8)
+  )
+    return flatBoard.charAt(6);
+  if (
+    flatBoard.charAt(0) === flatBoard.charAt(3) &&
+    flatBoard.charAt(3) === flatBoard.charAt(6)
+  )
+    return flatBoard.charAt(0);
+  if (
+    flatBoard.charAt(1) === flatBoard.charAt(4) &&
+    flatBoard.charAt(4) === flatBoard.charAt(7)
+  )
+    return flatBoard.charAt(1);
+  if (
+    flatBoard.charAt(2) === flatBoard.charAt(5) &&
+    flatBoard.charAt(5) === flatBoard.charAt(8)
+  )
+    return flatBoard.charAt(2);
+  if (
+    flatBoard.charAt(0) === flatBoard.charAt(4) &&
+    flatBoard.charAt(4) === flatBoard.charAt(8)
+  )
+    return flatBoard.charAt(0);
+  if (
+    flatBoard.charAt(2) === flatBoard.charAt(4) &&
+    flatBoard.charAt(4) === flatBoard.charAt(6)
+  )
+    return flatBoard.charAt(2);
 
-    // vertical
-    for (let col = 0; col < board[row].length; col++) {
-      if (
-        board[0][col] === "X" &&
-        board[1][col] === "X" &&
-        board[2][col] === "X"
-      )
-        return "X";
-      if (
-        board[0][col] === "0" &&
-        board[1][col] === "0" &&
-        board[2][col] === "0"
-      )
-        return "0";
-    }
-  }
-
-  // diagonal
-  if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X")
-    return "X";
-  if (board[0][0] == "0" && board[1][1] == "0" && board[2][2] == "0")
-    return "0";
-
-  if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X")
-    return "X";
-  if (board[0][2] == "0" && board[1][1] == "0" && board[2][0] == "0")
-    return "0";
-
-    // needs refactoring
-  return "fail"; 
+  return "fail";
 };
 
 module.exports = {

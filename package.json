@@ -4,7 +4,7 @@
   "description": "A repository of JavaScript challenges for you to work on throughout the course",
   "main": "index.js",
   "scripts": {
-    "test": "jest test/exercise007.test.js",
+    "test": "jest test/",
     "eslint": "eslint ./"
   },
   "repository": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/techreturners/js_practice_march2020#readme",
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "jest": "^25.2.4"
   }
 }

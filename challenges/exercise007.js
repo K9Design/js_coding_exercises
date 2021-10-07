@@ -23,8 +23,7 @@ const sumDigits = (n) => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
-  if (typeof start != "number" || typeof end != "number")
-    throw new Error("arguments as numbers is required");
+  if (typeof start != "number" || typeof end != "number") throw new Error("arguments as numbers is required");
   if (step === undefined) step = 1;
 
   let results = [];
@@ -141,49 +140,24 @@ const findWinner = (board) => {
     .map((arr) => arr.map((s) => (s === null ? "n" : s)))
     .flat(3)
     .join("");
-  if (flatBoard.replace(/([X0n]+)/g, "").length > 0)
-    throw new Error("bad arguments in array");
+  if (flatBoard.replace(/([X0n]+)/g, "").length > 0) throw new Error("bad arguments in array");
   if (flatBoard.length != 9) throw new Error("bad array format"); // expect 3x3
 
-  if (
-    flatBoard.charAt(0) === flatBoard.charAt(1) &&
-    flatBoard.charAt(1) === flatBoard.charAt(2)
-  )
+  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(1) && flatBoard.charAt(1) === flatBoard.charAt(2))
     return flatBoard.charAt(0);
-  if (
-    flatBoard.charAt(3) === flatBoard.charAt(4) &&
-    flatBoard.charAt(4) === flatBoard.charAt(5)
-  )
+  if (flatBoard.charAt(3) !== "n" && flatBoard.charAt(3) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(5))
     return flatBoard.charAt(3);
-  if (
-    flatBoard.charAt(6) === flatBoard.charAt(7) &&
-    flatBoard.charAt(7) === flatBoard.charAt(8)
-  )
+  if (flatBoard.charAt(6) !== "n" && flatBoard.charAt(6) === flatBoard.charAt(7) && flatBoard.charAt(7) === flatBoard.charAt(8))
     return flatBoard.charAt(6);
-  if (
-    flatBoard.charAt(0) === flatBoard.charAt(3) &&
-    flatBoard.charAt(3) === flatBoard.charAt(6)
-  )
+  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(3) && flatBoard.charAt(3) === flatBoard.charAt(6))
     return flatBoard.charAt(0);
-  if (
-    flatBoard.charAt(1) === flatBoard.charAt(4) &&
-    flatBoard.charAt(4) === flatBoard.charAt(7)
-  )
+  if (flatBoard.charAt(1) !== "n" && flatBoard.charAt(1) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(7))
     return flatBoard.charAt(1);
-  if (
-    flatBoard.charAt(2) === flatBoard.charAt(5) &&
-    flatBoard.charAt(5) === flatBoard.charAt(8)
-  )
+  if (flatBoard.charAt(2) !== "n" && flatBoard.charAt(2) === flatBoard.charAt(5) && flatBoard.charAt(5) === flatBoard.charAt(8))
     return flatBoard.charAt(2);
-  if (
-    flatBoard.charAt(0) === flatBoard.charAt(4) &&
-    flatBoard.charAt(4) === flatBoard.charAt(8)
-  )
+  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(8))
     return flatBoard.charAt(0);
-  if (
-    flatBoard.charAt(2) === flatBoard.charAt(4) &&
-    flatBoard.charAt(4) === flatBoard.charAt(6)
-  )
+  if (flatBoard.charAt(2) !== "n" && flatBoard.charAt(2) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(6))
     return flatBoard.charAt(2);
 
   return "fail";

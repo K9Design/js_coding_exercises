@@ -143,24 +143,22 @@ const findWinner = (board) => {
   if (flatBoard.replace(/([X0n]+)/g, "").length > 0) throw new Error("bad arguments in array");
   if (flatBoard.length != 9) throw new Error("bad array format"); // expect 3x3
 
-  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(1) && flatBoard.charAt(1) === flatBoard.charAt(2))
-    return flatBoard.charAt(0);
-  if (flatBoard.charAt(3) !== "n" && flatBoard.charAt(3) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(5))
-    return flatBoard.charAt(3);
-  if (flatBoard.charAt(6) !== "n" && flatBoard.charAt(6) === flatBoard.charAt(7) && flatBoard.charAt(7) === flatBoard.charAt(8))
-    return flatBoard.charAt(6);
-  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(3) && flatBoard.charAt(3) === flatBoard.charAt(6))
-    return flatBoard.charAt(0);
-  if (flatBoard.charAt(1) !== "n" && flatBoard.charAt(1) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(7))
-    return flatBoard.charAt(1);
-  if (flatBoard.charAt(2) !== "n" && flatBoard.charAt(2) === flatBoard.charAt(5) && flatBoard.charAt(5) === flatBoard.charAt(8))
-    return flatBoard.charAt(2);
-  if (flatBoard.charAt(0) !== "n" && flatBoard.charAt(0) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(8))
-    return flatBoard.charAt(0);
-  if (flatBoard.charAt(2) !== "n" && flatBoard.charAt(2) === flatBoard.charAt(4) && flatBoard.charAt(4) === flatBoard.charAt(6))
-    return flatBoard.charAt(2);
+  let winArraysCollection = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  let checkForWins = (winArrays, char) => winArrays.some((arr) => arr.every((n) => flatBoard.charAt(n) === char));
+  
+  if (checkForWins(winArraysCollection, "X")) return "X";
+  if (checkForWins(winArraysCollection, "0")) return "0";
 
-  return "fail";
+  return "no win";
 };
 
 module.exports = {

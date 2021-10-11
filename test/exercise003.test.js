@@ -3,7 +3,7 @@ const {
   camelCaseWords,
   getTotalSubjects,
   checkIngredients,
-  duplicateNumbers
+  duplicateNumbers,
 } = require("../challenges/exercise003");
 
 describe("camelCaseWords", () => {
@@ -19,9 +19,7 @@ describe("camelCaseWords", () => {
     expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
     expect(camelCaseWords(["my", "variable", "name"])).toBe("myVariableName");
     expect(camelCaseWords(["is", "unique"])).toBe("isUnique");
-    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe(
-      "isHigherThanMinNumber"
-    );
+    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe("isHigherThanMinNumber");
   });
 });
 
@@ -34,13 +32,7 @@ describe("getSquares", () => {
     expect(getSquares([2, 4, 6])).toEqual([4, 16, 36]);
     expect(getSquares([2, 4, 6, 1])).toEqual([4, 16, 36, 1]);
     expect(getSquares([2, 3, 6, 7, 12, 4])).toEqual([4, 9, 36, 49, 144, 16]);
-    expect(getSquares([54, 24, 5, 66, 992])).toEqual([
-      2916,
-      576,
-      25,
-      4356,
-      984064
-    ]);
+    expect(getSquares([54, 24, 5, 66, 992])).toEqual([2916, 576, 25, 4356, 984064]);
   });
 });
 
@@ -49,7 +41,7 @@ describe("getTotalSubjects", () => {
     const people = [
       { name: "Billy", subjects: [] },
       { name: "Claude", subjects: [] },
-      { name: "Aneeta", subjects: [] }
+      { name: "Aneeta", subjects: [] },
     ];
     expect(getTotalSubjects(people)).toBe(0);
   });
@@ -58,7 +50,7 @@ describe("getTotalSubjects", () => {
     const people = [
       { name: "Billy", subjects: [] },
       { name: "Claude", subjects: ["chemistry"] },
-      { name: "Aneeta", subjects: [] }
+      { name: "Aneeta", subjects: [] },
     ];
     expect(getTotalSubjects(people)).toBe(1);
   });
@@ -67,7 +59,7 @@ describe("getTotalSubjects", () => {
     const people = [
       { name: "Billy", subjects: ["welsh", "spanish"] },
       { name: "Claude", subjects: ["chemistry", "biology", "music"] },
-      { name: "Aneeta", subjects: ["physics", "maths", "computing", "music"] }
+      { name: "Aneeta", subjects: ["physics", "maths", "computing", "music"] },
     ];
     expect(getTotalSubjects(people)).toBe(9);
   });
@@ -78,26 +70,20 @@ describe("checkIngredients", () => {
     const menu = [
       {
         name: "tofu fritters",
-        ingredients: ["tofu", "egg yolk", "breadbrumbs", "paprika"]
+        ingredients: ["tofu", "egg yolk", "breadbrumbs", "paprika"],
       },
       {
         name: "black bean curry",
-        ingredients: ["black beans", "garam masala", "rice"]
+        ingredients: ["black beans", "garam masala", "rice"],
       },
       {
         name: "chocolate tiffin",
-        ingredients: [
-          "dark chocolate",
-          "egg",
-          "flour",
-          "brown sugar",
-          "vanilla essence"
-        ]
+        ingredients: ["dark chocolate", "egg", "flour", "brown sugar", "vanilla essence"],
       },
       {
         name: "hummus",
-        ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"]
-      }
+        ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"],
+      },
     ];
 
     expect(checkIngredients(menu, "milk")).toBe(false);
@@ -107,26 +93,20 @@ describe("checkIngredients", () => {
     const menu = [
       {
         name: "tofu fritters",
-        ingredients: ["tofu", "egg yolk", "breadbrumbs", "paprika"]
+        ingredients: ["tofu", "egg yolk", "breadbrumbs", "paprika"],
       },
       {
         name: "black bean curry",
-        ingredients: ["black beans", "garam masala", "rice"]
+        ingredients: ["black beans", "garam masala", "rice"],
       },
       {
         name: "chocolate tiffin",
-        ingredients: [
-          "dark chocolate",
-          "egg",
-          "flour",
-          "brown sugar",
-          "vanilla essence"
-        ]
+        ingredients: ["dark chocolate", "egg", "flour", "brown sugar", "vanilla essence"],
       },
       {
         name: "hummus",
-        ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"]
-      }
+        ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"],
+      },
     ];
 
     expect(checkIngredients(menu, "dark chocolate")).toBe(true);

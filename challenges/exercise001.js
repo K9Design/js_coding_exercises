@@ -8,28 +8,19 @@ function generateInitials(firstName, lastName) {
   if (firstName === undefined) throw new Error("firstName is required");
   if (lastName === undefined) throw new Error("lastName is required");
   // Add your code here!
-  return (
-    firstName.substring(0, 1).toUpperCase() +
-    "." +
-    lastName.substring(0, 1).toUpperCase()
-  );
+  return firstName.substring(0, 1).toUpperCase() + "." + lastName.substring(0, 1).toUpperCase();
 }
 
-// fairly accurate rounding algorithm with  N(scale) decimals
 function roundNumberWithDecimals(num, scale) {
   if (!("" + num).includes("e")) {
     return +(Math.round(num + "e+" + scale) + "e-" + scale);
   } else {
-    let arr = ("" + num).split("e");
+    const arr = ("" + num).split("e");
     let sig = "";
     if (+arr[1] + scale > 0) {
       sig = "+";
     }
-    return +(
-      Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) +
-      "e-" +
-      scale
-    );
+    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
   }
 }
 
@@ -37,19 +28,13 @@ function addVAT(originalPrice, vatRate) {
   if (originalPrice === undefined) throw new Error("originalPrice is requied");
   if (vatRate === undefined) throw new Error("vatRate is required");
   // Add your code here!
-  return roundNumberWithDecimals(
-    originalPrice + (originalPrice / 100) * vatRate,
-    2
-  );
+  return roundNumberWithDecimals(originalPrice + (originalPrice / 100) * vatRate, 2);
 }
 
 function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
-  return roundNumberWithDecimals(
-    originalPrice - (originalPrice / 100) * reduction,
-    2
-  );
+  return roundNumberWithDecimals(originalPrice - (originalPrice / 100) * reduction, 2);
   // Add your code here!
 }
 
@@ -57,7 +42,7 @@ function getMiddleCharacter(str) {
   if (str === undefined) throw new Error("str is required");
   // Add your code here!
   let midNum = str.length / 2;
-  let midNumFloored = Math.floor(midNum);
+  const midNumFloored = Math.floor(midNum);
   return (midNum =
     str.length / 2 == Math.floor(midNum)
       ? str.substring(midNum - 1, midNum + 1)
@@ -89,7 +74,7 @@ function countLinuxUsers(users) {
 function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
-  let total = scores.reduce((prevScore,score) => prevScore + score)
+  const total = scores.reduce((prevScore, score) => prevScore + score);
   return roundNumberWithDecimals(total / scores.length, 2);
 }
 

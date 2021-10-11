@@ -26,7 +26,7 @@ const createRange = (start, end, step) => {
   if (typeof start != "number" || typeof end != "number") throw new Error("arguments as numbers is required");
   if (step === undefined) step = 1;
 
-  let results = [];
+  const results = [];
   for (let i = start; i <= end; i += step) results.push(i);
 
   return results;
@@ -66,7 +66,7 @@ const getScreentimeAlertList = (users, date) => {
   if (date === undefined) throw new Error("date is required");
 
   //
-  let excededTimeUsers = [];
+  const excededTimeUsers = [];
   users.forEach((u) => {
     u.screenTime.filter((entry) => {
       if (entry.date === date) {
@@ -94,19 +94,18 @@ const hexToRGB = (hexStr) => {
   if (hexStr === undefined) throw new Error("hexStr is required");
   if (typeof hexStr != "string") throw new Error("hexStr is required");
   //
-  let rgbObject = hexToRgb(hexStr);
+  const rgbObject = hexToRgb(hexStr);
 
   return "rgb(" + rgbObject.r + "," + rgbObject.g + "," + rgbObject.b + ")";
 };
 
 function hexToRgb(hex) {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, function (m, r, g, b) {
     return r + r + g + g + b + b;
   });
 
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
         r: parseInt(result[1], 16),
@@ -135,15 +134,14 @@ const findWinner = (board) => {
   if (board === undefined) throw new Error("argument as array is required");
   if (!Array.isArray(board)) throw new Error("argument as array is required");
 
-  // find bad characters
-  let flatBoard = board
+  const flatBoard = board
     .map((arr) => arr.map((s) => (s === null ? "n" : s)))
     .flat(3)
     .join("");
   if (flatBoard.replace(/([X0n]+)/g, "").length > 0) throw new Error("bad arguments in array");
-  if (flatBoard.length != 9) throw new Error("bad array format"); // expect 3x3
+  if (flatBoard.length != 9) throw new Error("bad array format");
 
-  let winArraysCollection = [
+  const winArraysCollection = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -153,8 +151,8 @@ const findWinner = (board) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  let checkForWins = (winArrays, char) => winArrays.some((arr) => arr.every((n) => flatBoard.charAt(n) === char));
-  
+  const checkForWins = (winArrays, char) => winArrays.some((arr) => arr.every((n) => flatBoard.charAt(n) === char));
+
   if (checkForWins(winArraysCollection, "X")) return "X";
   if (checkForWins(winArraysCollection, "0")) return "0";
 

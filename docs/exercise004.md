@@ -24,7 +24,7 @@ Basic Syntax:
 ```javascript
 const arr = ["foo", "bar", "baz"];
 
-for (let i = 0; i < arr.length; i++) {
+for (const i = 0; i < arr.length; i++) {
   // do something with arr[i]
 }
 ```

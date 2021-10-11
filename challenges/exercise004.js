@@ -2,16 +2,12 @@ function roundNumberWithDecimals(num, scale) {
   if (!("" + num).includes("e")) {
     return +(Math.round(num + "e+" + scale) + "e-" + scale);
   } else {
-    let arr = ("" + num).split("e");
+    const arr = ("" + num).split("e");
     let sig = "";
     if (+arr[1] + scale > 0) {
       sig = "+";
     }
-    return +(
-      Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) +
-      "e-" +
-      scale
-    );
+    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
   }
 }
 
@@ -63,7 +59,6 @@ function getLongestSides(triangles) {
   if (!triangles) throw new Error("triangles is required");
   // Your code here
   return triangles.map((triangleArray) => triangleArray.reduce((prev, cur) => (cur > prev ? cur : prev), 0));
-
 }
 
 module.exports = {

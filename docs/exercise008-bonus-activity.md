@@ -32,7 +32,7 @@ However, sometimes there are situations where we don't know whether certain data
 For example, if we have some users, and we try to access their postcodes but - oh oh! They haven't provided addresses, JavaScript throws an error.
 
 ````
-let user = {}; // a user without "address" property
+const user = {}; // a user without "address" property
 
 alert(user.address.postcode); // Throws Error! 
 ````
@@ -58,14 +58,14 @@ The above code checks user exists (is not null or undefined). If user *does* exi
 This method can also be used to check for functions or properties, where a function or property may not exist. For example:
 
 ```
-let catUser = {
+const catUser = {
     miceEaten: 5,
   sayMeow() {
     alert("Meow!");
   }
 };
 
-let dogUser = {};
+const dogUser = {};
 
 catUser.sayMeow?.(); // Meow!
 

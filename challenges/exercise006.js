@@ -8,10 +8,7 @@ const sumMultiples = (arr) => {
   if (arr === undefined) throw new Error("arr is required");
   if (!Array.isArray(arr)) throw new Error("argument as array is required");
 
-  return arr.reduce(
-    (prev, num) => (num % 3 === 0 || num % 5 === 0 ? prev + num : prev),
-    0
-  );
+  return arr.reduce((prev, num) => (num % 3 === 0 || num % 5 === 0 ? prev + num : prev), 0);
 };
 
 /**
@@ -21,8 +18,7 @@ const sumMultiples = (arr) => {
  */
 const isValidDNA = (str) => {
   if (str === undefined) throw new Error("argument as a string is required");
-  if (typeof str != "string")
-    throw new Error("argument as a string is required");
+  if (typeof str != "string") throw new Error("argument as a string is required");
   //
   return str.length === 0 ? false : !/[^gtca]/i.test(str.toLowerCase());
 };
@@ -34,11 +30,10 @@ const isValidDNA = (str) => {
  */
 const getComplementaryDNA = (str) => {
   if (str === undefined) throw new Error("argument as a string is required");
-  if (typeof str != "string")
-    throw new Error("argument as a string is required");
+  if (typeof str != "string") throw new Error("argument as a string is required");
   if (!isValidDNA(str)) throw new Error("string contains non DNA characters");
   //
-  var swapMap = { g: "C", c: "G", t: "A", a: "T" };
+  const swapMap = { g: "C", c: "G", t: "A", a: "T" };
   return str.toLowerCase().replace(/[cgat]/g, (char) => swapMap[char]);
 };
 
@@ -50,7 +45,6 @@ const getComplementaryDNA = (str) => {
 const isItPrime = (n) => {
   if (n === undefined) throw new Error("argument as a number is required");
   if (typeof n != "number") throw new Error("argument as a number is required");
-  // limit search above 102233
   for (let i = 2; i < n; i++) {
     if (n % i === 0 || i > 102233) return false;
   }
@@ -73,8 +67,7 @@ const createMatrix = (n, fill) => {
   if (fill === undefined) throw new Error("fill is required");
 
   if (typeof n != "number") throw new Error("argument as a number is required");
-  if (typeof fill != "string")
-    throw new Error("second argument as a string is required");
+  if (typeof fill != "string") throw new Error("second argument as a string is required");
 
   return Array(n).fill(Array(n).fill(fill));
 };
@@ -97,9 +90,7 @@ const areWeCovered = (staff, day) => {
   if (staff.length === 0) return false;
 
   let count = 0;
-  staff.forEach((member) =>
-    member.rota.filter((d) => d === day).length > 0 ? count++ : 0
-  );
+  staff.forEach((member) => (member.rota.filter((d) => d === day).length > 0 ? count++ : 0));
   return count >= 3;
 };
 

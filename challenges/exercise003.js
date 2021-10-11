@@ -1,42 +1,37 @@
 function getSquares(nums) {
   if (nums === undefined) throw new Error("nums is required");
-  // Your code here!
-  let squared = nums.map((item) => item * item);
-  return squared.length > 0 ? squared : [];
+
+  return nums.map((num) => num * num);
 }
 
 function camelCaseWords(words) {
   if (words === undefined) throw new Error("words is required");
-  // Your code here!
+
   return words
     .map((word, index) =>
-      index === 0
-        ? word.toLowerCase()
-        : word.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())
+      index === 0 ? word.toLowerCase() : word.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())
     )
     .join("");
 }
 
 function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
-  // Your code here!
-  return people
-    .map((person) => person.subjects.length)
-    .reduce((prevCount, count) => prevCount + count);
+
+  return people.map((person) => person.subjects.length).reduce((prevCount, count) => prevCount + count);
 }
 
 function checkIngredients(menu, ingredient) {
   if (menu === undefined) throw new Error("menu is required");
   if (!ingredient) throw new Error("ingredient is required");
-  // Your code here!
+
   return menu.some((dish) => dish.ingredients.indexOf(ingredient) > -1);
 }
 
 function duplicateNumbers(arr1, arr2) {
   if (arr1 === undefined) throw new Error("arr1 is required");
   if (arr2 === undefined) throw new Error("arr2 is required");
-  // Your code here!
-  return [...new Set(arr1.filter(n => arr2.some(n2 => n === n2)).sort())];
+
+  return [...new Set(arr1.filter((n) => arr2.some((n2) => n === n2)).sort())];
 }
 
 module.exports = {
